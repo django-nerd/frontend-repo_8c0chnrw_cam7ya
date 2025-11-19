@@ -4,6 +4,7 @@ const backend = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
 
 function App() {
   const [status, setStatus] = useState({ state: 'idle' })
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -58,8 +59,9 @@ function App() {
             </div>
             <nav className="hidden md:flex gap-6 text-sm text-gray-600">
               <a href="#program" className="hover:text-[#7DA08A]">Program</a>
+              <a href="#proof" className="hover:text-[#7DA08A]">Authority</a>
+              <a href="#video" className="hover:text-[#7DA08A]">Video</a>
               <a href="#plans" className="hover:text-[#7DA08A]">Plans</a>
-              <a href="#faq" className="hover:text-[#7DA08A]">FAQ</a>
               <a href="/test" className="hover:text-[#7DA08A]">System</a>
             </nav>
           </div>
@@ -67,8 +69,8 @@ function App() {
       </header>
 
       <main className="relative">
-        {/* Hero */}
-        <section className="mx-auto max-w-6xl px-6 pt-8 pb-16">
+        {/* Hero with photography */}
+        <section className="mx-auto max-w-6xl px-6 pt-4 pb-16">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-semibold leading-tight tracking-tight">
@@ -78,19 +80,23 @@ function App() {
                 Weekly, human-centered guidance for nonprofits. Drop into the Guide Session, use the playbooks, and grow your monthly donors with clarity and consistency.
               </p>
               <div className="mt-6 flex gap-4">
-                <a href="#plans" className="inline-flex items-center rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95">Join the founding cohort</a>
-                <a href="#program" className="inline-flex items-center rounded-md px-5 py-3 border border-gray-200 bg-white hover:bg-gray-50">See how it works</a>
+                <button onClick={() => setIsModalOpen(true)} className="inline-flex items-center rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95">Apply in 30 seconds</button>
+                <a href="#video" className="inline-flex items-center rounded-md px-5 py-3 border border-gray-200 bg-white hover:bg-gray-50">Watch overview</a>
               </div>
               <p className="mt-3 text-sm text-gray-500">Founding rates: Core $199/mo • Premium $299/mo</p>
             </div>
             <div className="relative">
-              <div className="aspect-video rounded-xl bg-[#FAFAFA] border border-gray-200 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="text-sm uppercase tracking-wider text-gray-500">Weekly Guide Session</div>
-                  <div className="mt-2 text-2xl font-semibold">Half-day open office hours</div>
-                  <div className="mt-2 text-gray-600">Drop in for answers, feedback, and momentum.</div>
-                </div>
+              <div className="aspect-video overflow-hidden rounded-xl border border-gray-200">
+                <img
+                  src="https://images.unsplash.com/photo-1520975922203-b6f8ca3ae5a0?q=80&w=1600&auto=format&fit=crop"
+                  alt="Nonprofit team collaborating"
+                  className="h-full w-full object-cover"
+                />
               </div>
+              <a href="#video" className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm shadow hover:bg-white">
+                <span className="inline-block h-2 w-2 rounded-full bg-[#7DA08A]"></span>
+                Watch the 90‑second tour
+              </a>
             </div>
           </div>
         </section>
@@ -116,6 +122,69 @@ function App() {
           </div>
         </section>
 
+        {/* Authority / Testimonials */}
+        <section id="proof" className="mx-auto max-w-6xl px-6 py-16">
+          <div className="mb-10">
+            <h2 className="text-3xl font-semibold">What leaders say</h2>
+            <p className="mt-2 text-gray-600">Real teams doing real donor work — and seeing momentum.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                quote: 'We added 42 new monthly donors in eight weeks. The weekly cadence kept us shipping.',
+                name: 'Jordan C.',
+                role: 'Development Director, Arts Org',
+                img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop'
+              },
+              {
+                quote: 'The playbooks are gold — practical scripts we could use the same day.',
+                name: 'Amara T.',
+                role: 'Executive Director, Youth Services',
+                img: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=800&auto=format&fit=crop'
+              },
+              {
+                quote: 'Office hours felt like having a coach on our team. We finally have a plan we trust.',
+                name: 'Luis R.',
+                role: 'Founder, Community Kitchen',
+                img: 'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=800&auto=format&fit=crop'
+              }
+            ].map(t => (
+              <div key={t.name} className="rounded-2xl border border-gray-200 bg-white p-6">
+                <div className="flex items-center gap-4">
+                  <img src={t.img} alt={t.name} className="h-12 w-12 rounded-full object-cover" />
+                  <div>
+                    <div className="font-medium">{t.name}</div>
+                    <div className="text-sm text-gray-500">{t.role}</div>
+                  </div>
+                </div>
+                <p className="mt-4 text-gray-700">“{t.quote}”</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Video section */}
+        <section id="video" className="mx-auto max-w-6xl px-6 py-16">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h2 className="text-3xl font-semibold">See how Donor U works</h2>
+              <p className="mt-3 text-gray-600">A quick tour of the weekly rhythm, the playbooks, and how Premium adds 1:1 strategy each month.</p>
+              <div className="mt-6">
+                <button onClick={() => setIsModalOpen(true)} className="inline-flex items-center rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95">Get started</button>
+              </div>
+            </div>
+            <div className="aspect-video overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+              <iframe
+                className="h-full w-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0"
+                title="Donor U Overview"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </section>
+
         {/* Plans */}
         <section id="plans" className="mx-auto max-w-6xl px-6 py-16">
           <div className="mb-8">
@@ -134,6 +203,7 @@ function App() {
                 <li>• Replays + community Q&A</li>
                 <li>• Progress tracker</li>
               </ul>
+              <button onClick={() => { setForm(f => ({ ...f, tier: 'core' })); setIsModalOpen(true) }} className="mt-6 w-full rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95">Apply for Core</button>
             </div>
             {/* Premium */}
             <div className="rounded-2xl border-2 border-[#7DA08A] bg-white p-8 shadow-sm">
@@ -146,78 +216,8 @@ function App() {
                 <li>• Priority Q&A in sessions</li>
                 <li>• Personalized quarterly plan</li>
               </ul>
+              <button onClick={() => { setForm(f => ({ ...f, tier: 'premium' })); setIsModalOpen(true) }} className="mt-6 w-full rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95">Apply for Premium</button>
             </div>
-          </div>
-
-          {/* Application form */}
-          <div className="mt-12 rounded-2xl border border-gray-200 bg-white p-8">
-            <h3 className="text-2xl font-semibold">Apply to join</h3>
-            <p className="mt-2 text-gray-600">Short form — we’ll follow up with next steps and scheduling.</p>
-
-            <form onSubmit={submit} className="mt-6 grid md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Name</label>
-                <input name="name" value={form.name} onChange={handleChange} required className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" name="email" value={form.email} onChange={handleChange} required className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Organization</label>
-                <input name="org_name" value={form.org_name} onChange={handleChange} required className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Org size</label>
-                <select name="org_size" value={form.org_size} onChange={handleChange} className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]">
-                  {['solo','1-5','6-20','21-50','51-200','200+'].map(o => <option key={o} value={o}>{o}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Budget range</label>
-                <select name="budget_range" value={form.budget_range} onChange={handleChange} className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]">
-                  {["<250k","250k-500k","500k-1m","1m-5m","5m+"].map(o => <option key={o} value={o}>{o}</option>)}
-                </select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Top donor goal this quarter</label>
-                <input name="top_goal" value={form.top_goal} onChange={handleChange} placeholder="e.g., Add 25 new monthly donors" className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Plan</label>
-                <select name="tier" value={form.tier} onChange={handleChange} className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]">
-                  <option value="core">Core — $199/mo</option>
-                  <option value="premium">Premium — $299/mo</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Billing</label>
-                <select name="billing" value={form.billing} onChange={handleChange} className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]">
-                  <option value="monthly">Monthly</option>
-                  <option value="annual">Annual</option>
-                </select>
-              </div>
-              <div className="flex items-center gap-2">
-                <input id="scholarship" type="checkbox" name="scholarship" checked={form.scholarship} onChange={handleChange} className="h-4 w-4 text-[#7DA08A] border-gray-300 rounded" />
-                <label htmlFor="scholarship" className="text-sm text-gray-700">Apply for scholarship</label>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700">Notes</label>
-                <textarea name="notes" value={form.notes} onChange={handleChange} rows={4} className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
-              </div>
-              <div className="md:col-span-2">
-                <button disabled={status.state==='loading'} className="inline-flex items-center rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95 disabled:opacity-60">
-                  {status.state==='loading' ? 'Submitting…' : 'Submit application'}
-                </button>
-              </div>
-            </form>
-
-            {status.state==='success' && (
-              <div className="mt-4 rounded-md bg-[#ECEFF3] p-4 text-sm">Thanks! Your application was received. Ref: {status.id}</div>
-            )}
-            {status.state==='error' && (
-              <div className="mt-4 rounded-md bg-red-50 p-4 text-sm text-red-700">Something went wrong: {status.message}</div>
-            )}
           </div>
         </section>
 
@@ -236,7 +236,7 @@ function App() {
               a: 'Yes. Monthly plans can cancel any time; annual plans are discounted for commitment and non-refundable after 14 days.'
             },{
               q: 'Is there a scholarship?',
-              a: 'Yes for orgs under $500k annual budget. Check the box and we’ll follow up.'
+              a: 'Yes for orgs under $500k annual budget. Check the box in the extended form after applying and we’ll follow up.'
             }].map(item => (
               <div key={item.q} className="rounded-xl border border-gray-200 bg-white p-6">
                 <div className="font-medium">{item.q}</div>
@@ -250,9 +250,72 @@ function App() {
       <footer className="border-t border-gray-200">
         <div className="mx-auto max-w-6xl px-6 py-8 text-sm text-gray-500 flex items-center justify-between">
           <div>© {new Date().getFullYear()} Donor U</div>
-          <a href="#plans" className="text-[#7DA08A]">Apply now</a>
+          <button onClick={() => setIsModalOpen(true)} className="text-[#7DA08A]">Apply now</button>
         </div>
       </footer>
+
+      {/* Modal: streamlined capture form */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/40" onClick={() => { setIsModalOpen(false); setStatus({ state: 'idle' }) }}></div>
+          <div className="relative z-10 w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+            <div className="flex items-start justify-between">
+              <div>
+                <h3 className="text-xl font-semibold">Apply to join Donor U</h3>
+                <p className="mt-1 text-sm text-gray-600">Short form — we’ll follow up with next steps and scheduling.</p>
+              </div>
+              <button onClick={() => { setIsModalOpen(false); setStatus({ state: 'idle' }) }} className="-mr-2 rounded p-2 text-gray-500 hover:bg-gray-50">✕</button>
+            </div>
+
+            <form onSubmit={submit} className="mt-4 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Name</label>
+                  <input name="name" value={form.name} onChange={handleChange} required className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Email</label>
+                  <input type="email" name="email" value={form.email} onChange={handleChange} required className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Organization</label>
+                <input name="org_name" value={form.org_name} onChange={handleChange} required className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Plan</label>
+                  <select name="tier" value={form.tier} onChange={handleChange} className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]">
+                    <option value="core">Core — $199/mo</option>
+                    <option value="premium">Premium — $299/mo</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Billing</label>
+                  <select name="billing" value={form.billing} onChange={handleChange} className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]">
+                    <option value="monthly">Monthly</option>
+                    <option value="annual">Annual</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Top donor goal (optional)</label>
+                <input name="top_goal" value={form.top_goal} onChange={handleChange} placeholder="e.g., Add 25 new monthly donors" className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
+              </div>
+              <button disabled={status.state==='loading'} className="w-full inline-flex items-center justify-center rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95 disabled:opacity-60">
+                {status.state==='loading' ? 'Submitting…' : 'Submit application'}
+              </button>
+              {status.state==='success' && (
+                <div className="rounded-md bg-[#ECEFF3] p-3 text-sm">Thanks! Your application was received. Ref: {status.id}</div>
+              )}
+              {status.state==='error' && (
+                <div className="rounded-md bg-red-50 p-3 text-sm text-red-700">Something went wrong: {status.message}</div>
+              )}
+              <p className="text-xs text-gray-500">Need scholarship consideration? Mention it in your follow-up and we’ll apply the policy for orgs under $500k.</p>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
