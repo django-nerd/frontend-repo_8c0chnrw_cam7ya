@@ -56,6 +56,33 @@ function App() {
     }
   }
 
+  const impactLogos = [
+    {
+      src: 'https://images.squarespace-cdn.com/content/v1/58a71e5b9de4bb34adca46e6/1702957161144-GE9YTLXV2NAUG2L90TIH/logo_secondary_01.jpg',
+      alt: 'Logo 1'
+    },
+    {
+      src: 'https://anamcara.com/wp-content/uploads/2023/08/ac_logo_x2.png',
+      alt: 'Anam Cara'
+    },
+    {
+      src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJt1o0yxQ2pZjCo5pylb3sMMOp3fNG9yDsLA&s',
+      alt: 'Partner 3'
+    },
+    {
+      src: 'https://cdn.prod.website-files.com/60fb35fbd77b9d17584cbb41/62aa35c381b0080ccdd7096d_SRM%20Primary%20Color%20Block.png',
+      alt: 'SRM'
+    },
+    {
+      src: 'https://cdn.prod.website-files.com/5f6b9a421d5a61e1d0cd9e3d/5f8e6e7a4f8f2d093d459e72_59ef51429ed48b0001c2e4ed_Church_Community_Builder_Secondary_Logo_print.png',
+      alt: 'CCB'
+    },
+    {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png',
+      alt: 'Placeholder'
+    }
+  ]
+
   return (
     <div className="min-h-screen bg-white text-[#1C1C1C]">
       {/* Subtle animated grid background */}
@@ -144,9 +171,14 @@ function App() {
           >
             <div className="text-xs uppercase tracking-wider text-gray-500 text-center">Trusted by teams focused on monthly giving</div>
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 items-center">
-              {['Community Fund','River Health','Bright Futures','Open Hands','Horizon Arts','Green City'].map((name) => (
-                <motion.div key={name} whileHover={{ scale: 1.03 }} className="flex items-center justify-center rounded-md bg-gray-50 px-3 py-2 text-gray-500 border border-gray-100">
-                  <span className="text-[11px] sm:text-xs font-medium tracking-wide opacity-70">{name}</span>
+              {impactLogos.map((logo, i) => (
+                <motion.div key={i} whileHover={{ scale: 1.03 }} className="flex items-center justify-center rounded-md bg-gray-50 px-3 py-2 border border-gray-100">
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="h-8 sm:h-10 w-auto object-contain filter grayscale contrast-125 brightness-90 opacity-80"
+                    loading="lazy"
+                  />
                 </motion.div>
               ))}
             </div>
