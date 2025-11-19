@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import logo from './assets/logo.svg'
 
 const backend = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
 
@@ -97,7 +98,7 @@ function App() {
         <div className="mx-auto max-w-6xl px-6 py-12">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded bg-[#EADCC8]" />
+              <img src={logo} alt="Donor U" className="h-9 w-auto" />
               <span className="font-semibold tracking-tight">Donor U</span>
             </div>
             <nav className="hidden md:flex gap-6 text-sm text-gray-600">
@@ -387,7 +388,7 @@ function App() {
         <div className="mx-auto max-w-6xl px-6 py-14">
           <div className="mb-10 flex items-start justify-between gap-6">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded bg-[#EADCC8]" />
+              <img src={logo} alt="Donor U" className="h-10 w-auto" />
               <div>
                 <div className="font-semibold">Donor U</div>
                 <p className="text-sm text-gray-600 max-w-sm">Resources to help nonprofits build durable recurring donor programs with clarity, cadence, and care.</p>
@@ -527,7 +528,7 @@ function App() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Plan</label>
+                  <label className="block text sm font-medium text-gray-700">Plan</label>
                   <select name="tier" value={form.tier} onChange={handleChange} className="mt-1 w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]">
                     <option value="core">Core — $199/mo</option>
                     <option value="premium">Premium — $299/mo</option>
