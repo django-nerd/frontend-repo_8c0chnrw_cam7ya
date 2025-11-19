@@ -1,6 +1,17 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 const backend = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5, ease: 'easeOut' } })
+}
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.6, ease: 'easeOut' } }
+}
 
 function App() {
   const [status, setStatus] = useState({ state: 'idle' })
@@ -47,8 +58,13 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white text-[#1C1C1C]">
-      {/* Light grid background */}
-      <div className="pointer-events-none fixed inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.04)_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      {/* Subtle animated grid background */}
+      <motion.div
+        className="pointer-events-none fixed inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.04)_1px,transparent_1px)] bg-[size:24px_24px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      />
 
       <header className="relative">
         <div className="mx-auto max-w-6xl px-6 py-12">
@@ -59,6 +75,7 @@ function App() {
             </div>
             <nav className="hidden md:flex gap-6 text-sm text-gray-600">
               <a href="#program" className="hover:text-[#7DA08A]">Program</a>
+              <a href="#impact" className="hover:text-[#7DA08A]">Impact</a>
               <a href="#proof" className="hover:text-[#7DA08A]">Authority</a>
               <a href="#video" className="hover:text-[#7DA08A]">Video</a>
               <a href="#plans" className="hover:text-[#7DA08A]">Plans</a>
@@ -70,9 +87,14 @@ function App() {
 
       <main className="relative">
         {/* Hero with photography */}
-        <section className="mx-auto max-w-6xl px-6 pt-4 pb-16">
+        <section className="mx-auto max-w-6xl px-6 pt-4 pb-12">
           <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView={(i) => fadeUp.show(0)}
+              viewport={{ once: true, amount: 0.4 }}
+            >
               <h1 className="text-4xl md:text-5xl font-semibold leading-tight tracking-tight">
                 Build your recurring donor engine—together.
               </h1>
@@ -84,40 +106,82 @@ function App() {
                 <a href="#video" className="inline-flex items-center rounded-md px-5 py-3 border border-gray-200 bg-white hover:bg-gray-50">Watch overview</a>
               </div>
               <p className="mt-3 text-sm text-gray-500">Founding rates: Core $199/mo • Premium $299/mo</p>
-            </div>
-            <div className="relative">
-              <div className="aspect-video overflow-hidden rounded-xl border border-gray-200">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98, y: 12 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="relative"
+            >
+              <motion.div
+                className="aspect-video overflow-hidden rounded-xl border border-gray-200"
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+              >
                 <img
                   src="https://images.unsplash.com/photo-1520975922203-b6f8ca3ae5a0?q=80&w=1600&auto=format&fit=crop"
                   alt="Nonprofit team collaborating"
                   className="h-full w-full object-cover"
                 />
-              </div>
+              </motion.div>
               <a href="#video" className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm shadow hover:bg-white">
                 <span className="inline-block h-2 w-2 rounded-full bg-[#7DA08A]"></span>
                 Watch the 90‑second tour
               </a>
-            </div>
+            </motion.div>
           </div>
+        </section>
+
+        {/* Impact logos */}
+        <section id="impact" className="mx-auto max-w-6xl px-6 pb-6">
+          <motion.div
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.3 }}
+            className="rounded-xl border border-gray-200 bg-white/70 p-5"
+          >
+            <div className="text-xs uppercase tracking-wider text-gray-500 text-center">Trusted by teams focused on monthly giving</div>
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 items-center">
+              {['Community Fund','River Health','Bright Futures','Open Hands','Horizon Arts','Green City'].map((name) => (
+                <motion.div key={name} whileHover={{ scale: 1.03 }} className="flex items-center justify-center rounded-md bg-gray-50 px-3 py-2 text-gray-500 border border-gray-100">
+                  <span className="text-[11px] sm:text-xs font-medium tracking-wide opacity-70">{name}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </section>
 
         {/* Program */}
         <section id="program" className="mx-auto max-w-6xl px-6 py-16">
           <div className="grid md:grid-cols-3 gap-6">
-            {[{
-              title: 'Guide Session',
-              desc: 'Half-day weekly office hours to implement live with support.'
-            }, {
-              title: 'Weekly Playbooks',
-              desc: 'Scripts, sequences, and assets focused on one action per week.'
-            }, {
-              title: 'Accountability',
-              desc: 'Light check-ins and a simple progress tracker so you keep moving.'
-            }].map((b) => (
-              <div key={b.title} className="rounded-xl border border-gray-200 bg-white p-6">
+            {[
+              {
+                title: 'Guide Session',
+                desc: 'Half-day weekly office hours to implement live with support.'
+              },
+              {
+                title: 'Weekly Playbooks',
+                desc: 'Scripts, sequences, and assets focused on one action per week.'
+              },
+              {
+                title: 'Accountability',
+                desc: 'Light check-ins and a simple progress tracker so you keep moving.'
+              }
+            ].map((b, i) => (
+              <motion.div
+                key={b.title}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView={(i) => fadeUp.show(i)}
+                viewport={{ once: true, amount: 0.4 }}
+                custom={i}
+                className="rounded-xl border border-gray-200 bg-white p-6"
+              >
                 <h3 className="text-lg font-semibold">{b.title}</h3>
                 <p className="mt-2 text-gray-600">{b.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -148,8 +212,16 @@ function App() {
                 role: 'Founder, Community Kitchen',
                 img: 'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=800&auto=format&fit=crop'
               }
-            ].map(t => (
-              <div key={t.name} className="rounded-2xl border border-gray-200 bg-white p-6">
+            ].map((t, i) => (
+              <motion.div
+                key={t.name}
+                className="rounded-2xl border border-gray-200 bg-white p-6"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                whileHover={{ y: -4 }}
+              >
                 <div className="flex items-center gap-4">
                   <img src={t.img} alt={t.name} className="h-12 w-12 rounded-full object-cover" />
                   <div>
@@ -158,7 +230,7 @@ function App() {
                   </div>
                 </div>
                 <p className="mt-4 text-gray-700">“{t.quote}”</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -166,14 +238,25 @@ function App() {
         {/* Video section */}
         <section id="video" className="mx-auto max-w-6xl px-6 py-16">
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView={(i) => fadeUp.show(0)}
+              viewport={{ once: true, amount: 0.4 }}
+            >
               <h2 className="text-3xl font-semibold">See how Donor U works</h2>
               <p className="mt-3 text-gray-600">A quick tour of the weekly rhythm, the playbooks, and how Premium adds 1:1 strategy each month.</p>
               <div className="mt-6">
                 <button onClick={() => setIsModalOpen(true)} className="inline-flex items-center rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95">Get started</button>
               </div>
-            </div>
-            <div className="aspect-video overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+            </motion.div>
+            <motion.div
+              className="aspect-video overflow-hidden rounded-xl border border-gray-200 shadow-sm"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.6 }}
+            >
               <iframe
                 className="h-full w-full"
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0"
@@ -181,7 +264,7 @@ function App() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               ></iframe>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -193,7 +276,11 @@ function App() {
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {/* Core */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-8">
+            <motion.div
+              className="rounded-2xl border border-gray-200 bg-white p-8"
+              whileHover={{ y: -4 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+            >
               <div className="text-sm font-medium text-[#7DA08A]">Core</div>
               <div className="mt-2 text-4xl font-semibold">$199<span className="text-lg text-gray-500">/mo</span></div>
               <div className="text-sm text-gray-500">Regular $329</div>
@@ -204,9 +291,13 @@ function App() {
                 <li>• Progress tracker</li>
               </ul>
               <button onClick={() => { setForm(f => ({ ...f, tier: 'core' })); setIsModalOpen(true) }} className="mt-6 w-full rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95">Apply for Core</button>
-            </div>
+            </motion.div>
             {/* Premium */}
-            <div className="rounded-2xl border-2 border-[#7DA08A] bg-white p-8 shadow-sm">
+            <motion.div
+              className="rounded-2xl border-2 border-[#7DA08A] bg-white p-8 shadow-sm"
+              whileHover={{ y: -4 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 18 }}
+            >
               <div className="text-sm font-medium text-[#7DA08A]">Premium</div>
               <div className="mt-2 text-4xl font-semibold">$299<span className="text-lg text-gray-500">/mo</span></div>
               <div className="text-sm text-gray-500">Regular $499</div>
@@ -217,7 +308,7 @@ function App() {
                 <li>• Personalized quarterly plan</li>
               </ul>
               <button onClick={() => { setForm(f => ({ ...f, tier: 'premium' })); setIsModalOpen(true) }} className="mt-6 w-full rounded-md bg-[#7DA08A] px-5 py-3 text-white font-medium shadow-sm hover:brightness-95">Apply for Premium</button>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -225,23 +316,35 @@ function App() {
         <section id="faq" className="mx-auto max-w-6xl px-6 py-16">
           <h2 className="text-3xl font-semibold">FAQ</h2>
           <div className="mt-6 grid md:grid-cols-2 gap-6">
-            {[{
-              q: 'How much time should I plan each week?',
-              a: 'Plan 1–3 hours. Drop into the weekly Guide Session as needed and ship the weekly playbook action.'
-            },{
-              q: 'When do we start?',
-              a: 'Rolling admission with monthly onboarding. New playbooks release Mondays; Guide Session runs on a fixed weekday half-day.'
-            },{
-              q: 'Can I cancel any time?',
-              a: 'Yes. Monthly plans can cancel any time; annual plans are discounted for commitment and non-refundable after 14 days.'
-            },{
-              q: 'Is there a scholarship?',
-              a: 'Yes for orgs under $500k annual budget. Check the box in the extended form after applying and we’ll follow up.'
-            }].map(item => (
-              <div key={item.q} className="rounded-xl border border-gray-200 bg-white p-6">
+            {[
+              {
+                q: 'How much time should I plan each week?',
+                a: 'Plan 1–3 hours. Drop into the weekly Guide Session as needed and ship the weekly playbook action.'
+              },
+              {
+                q: 'When do we start?',
+                a: 'Rolling admission with monthly onboarding. New playbooks release Mondays; Guide Session runs on a fixed weekday half-day.'
+              },
+              {
+                q: 'Can I cancel any time?',
+                a: 'Yes. Monthly plans can cancel any time; annual plans are discounted for commitment and non-refundable after 14 days.'
+              },
+              {
+                q: 'Is there a scholarship?',
+                a: 'Yes for orgs under $500k annual budget. Check the box in the extended form after applying and we’ll follow up.'
+              }
+            ].map((item, i) => (
+              <motion.div
+                key={item.q}
+                className="rounded-xl border border-gray-200 bg-white p-6"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: i * 0.06, duration: 0.45 }}
+              >
                 <div className="font-medium">{item.q}</div>
                 <div className="mt-2 text-gray-600">{item.a}</div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
@@ -258,7 +361,12 @@ function App() {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/40" onClick={() => { setIsModalOpen(false); setStatus({ state: 'idle' }) }}></div>
-          <div className="relative z-10 w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+          <motion.div
+            className="relative z-10 w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl"
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+          >
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="text-xl font-semibold">Apply to join Donor U</h3>
@@ -313,7 +421,7 @@ function App() {
               )}
               <p className="text-xs text-gray-500">Need scholarship consideration? Mention it in your follow-up and we’ll apply the policy for orgs under $500k.</p>
             </form>
-          </div>
+          </motion.div>
         </div>
       )}
     </div>
