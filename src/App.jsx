@@ -382,10 +382,113 @@ function App() {
         </section>
       </main>
 
-      <footer className="border-t border-gray-200">
-        <div className="mx-auto max-w-6xl px-6 py-8 text-sm text-gray-500 flex items-center justify-between">
-          <div>© {new Date().getFullYear()} Donor U</div>
-          <button onClick={() => setIsModalOpen(true)} className="text-[#7DA08A]">Apply now</button>
+      {/* Resources Footer */}
+      <footer id="resources" className="border-t border-gray-200 bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-14">
+          <div className="mb-10 flex items-start justify-between gap-6">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded bg-[#EADCC8]" />
+              <div>
+                <div className="font-semibold">Donor U</div>
+                <p className="text-sm text-gray-600 max-w-sm">Resources to help nonprofits build durable recurring donor programs with clarity, cadence, and care.</p>
+              </div>
+            </div>
+            <button onClick={() => setIsModalOpen(true)} className="hidden md:inline-flex items-center rounded-md bg-[#7DA08A] px-4 py-2 text-white text-sm font-medium shadow-sm hover:brightness-95">Apply now</button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 text-sm">
+            <div>
+              <div className="text-xs uppercase tracking-wider text-gray-500">Guides</div>
+              <ul className="mt-3 space-y-2 text-gray-700">
+                <li><a className="hover:text-[#7DA08A]" href="#">Monthly Donor Fundamentals</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Email Sequences That Convert</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Year-Round Stewardship</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">One-Time → Recurring Upgrade Plays</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Board Buy-In for MRR</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-xs uppercase tracking-wider text-gray-500">Playbooks</div>
+              <ul className="mt-3 space-y-2 text-gray-700">
+                <li><a className="hover:text-[#7DA08A]" href="#">30-Day Launch Sprint</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">6-Email Winback Sequence</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Landing Page Optimization</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Community Ambassador Kit</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Recurring Donor KPIs</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-xs uppercase tracking-wider text-gray-500">Case Studies</div>
+              <ul className="mt-3 space-y-2 text-gray-700">
+                <li><a className="hover:text-[#7DA08A]" href="#">Arts Org: 42 New MRR in 8 Weeks</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Youth Services: Upgrades at Scale</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Community Kitchen: From Chaos to Cadence</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Animal Rescue: Stewardship That Sticks</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-xs uppercase tracking-wider text-gray-500">Webinars & Replays</div>
+              <ul className="mt-3 space-y-2 text-gray-700">
+                <li><a className="hover:text-[#7DA08A]" href="#">How to Start a Monthly Program</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Upgrading One-Time Donors</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Copy Clinic: Donation Pages</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Quarterly Planning Workshop</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <div className="text-xs uppercase tracking-wider text-gray-500">Templates & Downloads</div>
+              <ul className="mt-3 space-y-2 text-gray-700">
+                <li><a className="hover:text-[#7DA08A]" href="#">Donor Journey Map (PDF)</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Monthly Giving Calculator (Sheet)</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Email Sequence Scripts (Doc)</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Board Slides (PPT)</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Policy Templates (DOC)</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            <div className="rounded-xl border border-gray-200 p-5">
+              <div className="text-sm font-medium">Subscribe for weekly playbooks</div>
+              <p className="mt-1 text-sm text-gray-600">One focused action each week to grow recurring donors.</p>
+              <form onSubmit={(e)=>e.preventDefault()} className="mt-3 flex gap-2">
+                <input type="email" placeholder="you@org.org" className="w-full rounded-md border-gray-300 focus:border-[#7DA08A] focus:ring-[#7DA08A]" />
+                <button className="shrink-0 rounded-md bg-[#7DA08A] px-4 py-2 text-white text-sm font-medium hover:brightness-95">Join</button>
+              </form>
+            </div>
+            <div className="rounded-xl border border-gray-200 p-5">
+              <div className="text-sm font-medium">Featured long-form</div>
+              <ul className="mt-2 space-y-2 text-sm text-gray-700">
+                <li><a className="hover:text-[#7DA08A]" href="#">The Monthly Giving Operating System</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Designing a Stewardship Rhythm Your Team Can Keep</a></li>
+                <li><a className="hover:text-[#7DA08A]" href="#">Copy Tactics That Move Donors Without Manipulation</a></li>
+              </ul>
+            </div>
+            <div className="rounded-xl border border-gray-200 p-5">
+              <div className="text-sm font-medium">Download: Starter Kit</div>
+              <p className="mt-1 text-sm text-gray-600">A bundle of scripts, templates, and a dashboard to kickstart your program.</p>
+              <a href="#" className="mt-3 inline-flex items-center rounded-md border border-gray-200 bg-white px-4 py-2 text-sm hover:bg-gray-50">Get the ZIP</a>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-200">
+          <div className="mx-auto max-w-6xl px-6 py-6 text-sm text-gray-500 flex flex-col md:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span>© {new Date().getFullYear()} Donor U</span>
+              <span className="hidden md:inline">•</span>
+              <a href="#" className="hover:text-[#7DA08A]">Privacy</a>
+              <span>·</span>
+              <a href="#" className="hover:text-[#7DA08A]">Terms</a>
+              <span>·</span>
+              <a href="#" className="hover:text-[#7DA08A]">Contact</a>
+            </div>
+            <button onClick={() => setIsModalOpen(true)} className="text-[#7DA08A]">Apply now</button>
+          </div>
         </div>
       </footer>
 
